@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 //@RepositoryRestResource(path = "orders", collectionResourceRel = "orders")
 public interface OrderReadModelRepository
-    extends JpaRepository<OrderReadModel, Long> {
+    extends JpaRepository<OrderReadModel, String> {
     /*
     @Override
     @RestResource(exported = false)

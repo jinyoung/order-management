@@ -49,7 +49,7 @@ public class OrderController {
                 OrderAggregate resource = new OrderAggregate();
                 BeanUtils.copyProperties(orderCommand, resource);
 
-                resource.setId((Long) id);
+                resource.setId((String) id);
 
                 return new ResponseEntity<>(hateoas(resource), HttpStatus.OK);
             });

@@ -20,11 +20,11 @@ import org.springframework.beans.BeanUtils;
 @ToString
 public class OrderAggregate {
 
-    @AggregateIdentifier
-    private Long id;
-
     private String productId;
     private String status;
+
+    @AggregateIdentifier
+    private String id;
 
     public OrderAggregate() {}
 

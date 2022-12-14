@@ -12,10 +12,10 @@ import org.springframework.hateoas.server.core.Relation;
 @Relation(collectionRelation = "orders")
 public class OrderReadModel {
 
-    @Id
-    private Long id;
-
     private String productId;
 
     private String status;
+
+    @Id
+    private String id;
 }

@@ -59,7 +59,7 @@ public class OrderQueryController {
     }
 
     @GetMapping("/orders/{id}")
-    public CompletableFuture findById(@PathVariable("id") Long id) {
+    public CompletableFuture findById(@PathVariable("id") String id) {
         OrderSingleQuery query = new OrderSingleQuery();
         query.setId(id);
 
@@ -104,7 +104,9 @@ public class OrderQueryController {
     }
 
     @MessageMapping("orders.{id}.get")
-    public Flux<OrderReadModel> subscribeSingle(@DestinationVariable Long id) {
+    public Flux<OrderReadModel> subscribeSingle(
+        @DestinationVariable String id
+    ) {
         OrderSingleQuery query = new OrderSingleQuery();
         query.setId(id);
 

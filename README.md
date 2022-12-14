@@ -43,7 +43,7 @@ Head to http://localhost:8088 with a web browser
 ## Test Rest APIs
 - order
 ```
- http :8088/orders id="id" productId="productId" status="status" 
+ http :8088/orders productId="productId" status="status" id="id" 
 ```
 
 ## Test RSocket APIs

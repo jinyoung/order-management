@@ -66,9 +66,9 @@
             values: [],
             headers: 
                 [
-                    { text: "id", value: "id" },
                     { text: "productId", value: "productId" },
                     { text: "status", value: "status" },
+                    { text: "id", value: "id" },
                 ],
             order : [],
             newValue: {},

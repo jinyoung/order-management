@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class OrderSingleQuery {
 
-    private Long id;
+    private String id;
 }
