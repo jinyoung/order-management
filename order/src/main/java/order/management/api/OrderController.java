@@ -55,6 +55,20 @@ public class OrderController {
             });
     }
 
+    @RequestMapping(
+        value = "/orders/{id}/cancel",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public CompletableFuture cancel(@PathVariable("id") String id)
+        throws Exception {
+        System.out.println("##### /order/cancel  called #####");
+        CancelCommand cancelCommand = new CancelCommand();
+        cancelCommand.setId(id);
+        // send command
+        return commandGateway.send(cancelCommand);
+    }
+
     @Autowired
     EventStore eventStore;
 
@@ -72,6 +86,10 @@ public class OrderController {
         EntityModel<OrderAggregate> model = EntityModel.of(resource);
 
         model.add(Link.of("/orders/" + resource.getId()).withSelfRel());
+
+        model.add(
+            Link.of("/orders/" + resource.getId() + "/cancel").withRel("cancel")
+        );
 
         model.add(
             Link.of("/orders/" + resource.getId() + "/events").withRel("events")

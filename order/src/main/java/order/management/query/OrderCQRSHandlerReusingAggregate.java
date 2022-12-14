@@ -49,4 +49,26 @@ public class OrderCQRSHandlerReusingAggregate {
 
         queryUpdateEmitter.emit(OrderQuery.class, query -> true, entity);
     }
+
+    @EventHandler
+    public void whenOrderCancelled_then_UPDATE(OrderCancelledEvent event)
+        throws Exception {
+        repository
+            .findById(event.getId())
+            .ifPresent(entity -> {
+                OrderAggregate aggregate = new OrderAggregate();
+
+                BeanUtils.copyProperties(entity, aggregate);
+                aggregate.on(event);
+                BeanUtils.copyProperties(aggregate, entity);
+
+                repository.save(entity);
+
+                queryUpdateEmitter.emit(
+                    OrderSingleQuery.class,
+                    query -> query.getId().equals(event.getId()),
+                    entity
+                );
+            });
+    }
 }
