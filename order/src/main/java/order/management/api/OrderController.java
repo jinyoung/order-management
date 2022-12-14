@@ -69,6 +69,20 @@ public class OrderController {
         return commandGateway.send(cancelCommand);
     }
 
+    @RequestMapping(
+        value = "/orders/{id}/approve",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public CompletableFuture approve(@PathVariable("id") String id)
+        throws Exception {
+        System.out.println("##### /order/approve  called #####");
+        ApproveCommand approveCommand = new ApproveCommand();
+        approveCommand.setId(id);
+        // send command
+        return commandGateway.send(approveCommand);
+    }
+
     @Autowired
     EventStore eventStore;
 
@@ -89,6 +103,12 @@ public class OrderController {
 
         model.add(
             Link.of("/orders/" + resource.getId() + "/cancel").withRel("cancel")
+        );
+
+        model.add(
+            Link
+                .of("/orders/" + resource.getId() + "/approve")
+                .withRel("approve")
         );
 
         model.add(

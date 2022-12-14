@@ -91,6 +91,11 @@ public class OrderQueryController {
         model.add(
             Link.of("/orders/" + resource.getId() + "/cancel").withRel("cancel")
         );
+        model.add(
+            Link
+                .of("/orders/" + resource.getId() + "/approve")
+                .withRel("approve")
+        );
 
         model.add(
             Link.of("/orders/" + resource.getId() + "/events").withRel("events")

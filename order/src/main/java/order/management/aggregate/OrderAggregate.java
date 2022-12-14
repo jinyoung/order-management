@@ -47,6 +47,14 @@ public class OrderAggregate {
         apply(event);
     }
 
+    @CommandHandler
+    public void handle(ApproveCommand command) {
+        OrderApprovedEvent event = new OrderApprovedEvent();
+        BeanUtils.copyProperties(command, event);
+
+        apply(event);
+    }
+
     private String createUUID() {
         return UUID.randomUUID().toString();
     }
@@ -60,6 +68,12 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCancelledEvent event) {
+        //TODO: business logic here
+
+    }
+
+    @EventSourcingHandler
+    public void on(OrderApprovedEvent event) {
         //TODO: business logic here
 
     }

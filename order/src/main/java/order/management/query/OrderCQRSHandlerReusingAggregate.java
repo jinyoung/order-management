@@ -71,4 +71,26 @@ public class OrderCQRSHandlerReusingAggregate {
                 );
             });
     }
+
+    @EventHandler
+    public void whenOrderApproved_then_UPDATE(OrderApprovedEvent event)
+        throws Exception {
+        repository
+            .findById(event.getId())
+            .ifPresent(entity -> {
+                OrderAggregate aggregate = new OrderAggregate();
+
+                BeanUtils.copyProperties(entity, aggregate);
+                aggregate.on(event);
+                BeanUtils.copyProperties(aggregate, entity);
+
+                repository.save(entity);
+
+                queryUpdateEmitter.emit(
+                    OrderSingleQuery.class,
+                    query -> query.getId().equals(event.getId()),
+                    entity
+                );
+            });
+    }
 }
